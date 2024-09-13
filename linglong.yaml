@@ -1,0 +1,41 @@
+version: "1"
+
+package:
+  id: io.github.SerialTool
+  name: SerialTool
+  version: 1.5.7.0
+  kind: app
+  description: |
+    A cross platform Serial-Port/TCP/UDP debugging tool.
+
+command:
+  - /opt/apps/io.github.SerialTool/files/bin/SerialTool
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/skiars/SerialTool.git
+    version: master
+    commit: 6f14442a01c9a623bd821eb7df0fbe2f9e10d35b
+  - kind: file
+    url: http://ftp.cn.debian.org/debian/pool/main/q/qscintilla2/libqscintilla2-qt5-dev_2.10.4+dfsg-2.1_amd64.deb
+    digest: 4391d51eb102823a9e75c7dcb5e0ec067c2e5ca7f1d0122bd219a349b33462a6
+  - kind: file
+    url: http://ftp.cn.debian.org/debian/pool/main/q/qscintilla2/libqscintilla2-qt5-13_2.10.4+dfsg-2.1_amd64.deb
+    digest: f752303b902cb900d851aaa861602da81a68489e447ebd5599a3073b73bc3d3d
+  - kind: file
+    url: http://ftp.cn.debian.org/debian/pool/main/q/qscintilla2/libqscintilla2-qt5-l10n_2.10.4+dfsg-2.1_all.deb
+    digest: d5317f3fb099f1ab847cbd3850720da1a5dd6a7b60f869531a2fc46899047696
+  - kind: file
+    url: http://ftp.cn.debian.org/debian/pool/main/q/qscintilla2/libqscintilla2-qt5-13_2.10.4+dfsg-2.1_amd64.deb
+    digest: f752303b902cb900d851aaa861602da81a68489e447ebd5599a3073b73bc3d3d
+build: |
+  bash ./install_dep linglong/sources $PREFIX
+  cd /project/linglong/sources/SerialTool.git
+  git apply ../../../0001-install.patch
+  cd SerialTool
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make -j$(nproc)
+  make install

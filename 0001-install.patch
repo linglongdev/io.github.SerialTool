@@ -1,0 +1,47 @@
+From 08f0e1dbca727857720f4e80dc3f4a776992d6a9 Mon Sep 17 00:00:00 2001
+From: wjyrich <1071633242@qq.com>
+Date: Sun, 8 Sep 2024 12:40:22 +0800
+Subject: [PATCH] install
+
+---
+ SerialTool/SerialTool.pro | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/SerialTool/SerialTool.pro b/SerialTool/SerialTool.pro
+index 53862ef..1282bb5 100644
+--- a/SerialTool/SerialTool.pro
++++ b/SerialTool/SerialTool.pro
+@@ -10,7 +10,7 @@ TARGET = SerialTool
+ TEMPLATE = app
+ 
+ CONFIG  += qscintilla2
+-
++INCLUDEPATH += $$PREFIX/include/x86_64-linux-gnu/qt5
+ # The following define makes your compiler emit warnings if you use
+ # any feature of Qt which as been marked as deprecated (the exact warnings
+ # depend on your compiler). Please consult the documentation of the
+@@ -139,3 +139,20 @@ FORMS += \
+     ui/updatedialog.ui \
+     ui/oscilloscopeview.ui \
+     ui/texttrview.ui
++
++LIBS += -L$$PREFIX/lib -lqscintilla2_qt5
++
++target.path = $$PREFIX/bin
++desktop.files = pkg/io.github.skiars.serialtool.desktop
++desktop.path = $$PREFIX/share/applications/
++icons1.path = $$PREFIX/share/icons/hicolor/16x16/apps/
++icons1.files = pkg/icons/hicolor/16x16/apps/serialtool.png
++icons2.path = $$PREFIX/share/icons/hicolor/20x20/apps/
++icons2.files = pkg/icons/hicolor/16x16/apps/serialtool.png
++icons3.path = $$PREFIX/share/icons/hicolor/32x32/apps/
++icons3.files = pkg/icons/hicolor/32x32/apps/serialtool.png
++icons4.path = $$PREFIX/share/icons/hicolor/24x24/apps/
++icons4.files = pkg/icons/hicolor/24x24/apps/serialtool.png
++icons5.path = $$PREFIX/share/icons/hicolor/64x64/apps/
++icons5.files = pkg/icons/hicolor/64x64/apps/serialtool.png
++INSTALLS += target desktop icons1 icons2 icons3 icons4 icons5
+\ No newline at end of file
+-- 
+2.43.4
+
